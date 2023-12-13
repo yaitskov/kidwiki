@@ -1,5 +1,7 @@
 module Kidwiki.Cmd.RunServer where
 
+import Kidwiki.FixedPool
+import Kidwiki.Gpt.Api
 import Kidwiki.Katip
 import Kidwiki.Prelude
 import Kidwiki.Servant.Monad
@@ -10,18 +12,20 @@ import Network.Wai.Handler.Warp
 import Network.Wai.Logger
 import Servant
 import System.Posix.Signals hiding (Handler)
+import UnliftIO.Directory
 
 type IamReady = "i-am-ready" :> Post '[JSON] Text
 
 type API =
   WikipediaApi :<|>
+  GptApi :<|>
   IamReady
 
 api :: Proxy API
 api = Proxy
 
 server :: ServerT API AppM
-server = wikipedia :<|> iamReady
+server = wikipedia :<|> gpt :<|> iamReady
   where
     iamReady = pure "Kidwiki Backend"
 
@@ -39,9 +43,11 @@ hoistAppServer le config = hoistServer api (nt' config) server where
           runKatipContextT le () "servant.http" $
             runReaderT (runAppM m) env)
 
+
 runServerCmd :: HttpAppPort -> AppT ()
 runServerCmd httpPort =
   liftIO $ do
+    keysPool <- mkFixedPool =<< loadKeys
     withKatipToStdout "Kidwiki" "devel" (pure ()) $ \le ->
       withStdoutLogger
         (\logger ->
@@ -49,8 +55,12 @@ runServerCmd httpPort =
               (settings le logger)
               (serve api $
                 hoistAppServer le $
-                  ServantAppState ()))
+                  ServantAppState () keysPool))
   where
+    loadKeys =
+      fmap GptKey <$>
+        (mapM (readFileBS . ("kidwiki.keys/" <>))
+          =<< listDirectory "kidwiki.keys")
     whenReady le =
       runKatipContextT le () "servant.init" $ do
         $(logTM) InfoS $ "Listen to port " <> showLS httpPort

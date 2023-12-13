@@ -20,6 +20,8 @@ library
       Kidwiki.Cli
       Kidwiki.Cmd.RunServer
       Kidwiki.Error
+      Kidwiki.FixedPool
+      Kidwiki.Gpt.Api
       Kidwiki.Json
       Kidwiki.Katip
       Kidwiki.Lens
@@ -100,6 +102,7 @@ library
     , servant
     , servant-server
     , sqlite-simple
+    , stm
     , template-haskell
     , text
     , time
@@ -107,6 +110,7 @@ library
     , tuple
     , unix
     , unliftio
+    , unliftio-pool
     , unordered-containers
     , uuid
     , wai
@@ -189,6 +193,7 @@ executable kidwiki
     , servant
     , servant-server
     , sqlite-simple
+    , stm
     , template-haskell
     , text
     , time
@@ -196,6 +201,7 @@ executable kidwiki
     , tuple
     , unix
     , unliftio
+    , unliftio-pool
     , unordered-containers
     , uuid
     , wai
@@ -286,6 +292,7 @@ test-suite kidwikitest
     , servant
     , servant-server
     , sqlite-simple
+    , stm
     , tasty
     , tasty-discover
     , tasty-expected-failure
@@ -299,6 +306,7 @@ test-suite kidwikitest
     , tuple
     , unix
     , unliftio
+    , unliftio-pool
     , unordered-containers
     , uuid
     , wai

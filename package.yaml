@@ -78,6 +78,7 @@ dependencies:
   - servant
   - servant-server
   - sqlite-simple
+  - stm
   - text
   - template-haskell
   - time
@@ -85,6 +86,7 @@ dependencies:
   - tuple
   - unix
   - unliftio
+  - unliftio-pool
   - unordered-containers
   - uuid
   - wai

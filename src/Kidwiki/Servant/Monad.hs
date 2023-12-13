@@ -4,11 +4,15 @@ import Control.Monad.Catch (MonadCatch, MonadThrow)
 import Katip as K
 import Relude
 import UnliftIO (MonadUnliftIO)
+import UnliftIO.Pool
 
-type UserTableName = Text
-type TableFieldName = Text
+newtype GptKey = GptKey ByteString deriving (Show, Eq, Ord)
 
-newtype ServantAppState = ServantAppState { unit :: () }
+data ServantAppState
+  = ServantAppState
+      { unit :: ()
+      , gptKeysPool :: Pool GptKey
+      }
 
 newtype AppM a
   = AppM
