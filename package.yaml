@@ -1,0 +1,130 @@
+name: kidwiki
+version: 0.0.1
+license: BSD3
+license-file: LICENSE
+author: Daniil Iaitskov
+maintainer: dyaitskov@gmail.com
+category: Database
+build-type: Simple
+description: Rewrites Wikipedia articles for kids with chatGPT
+
+ghc-options: -O2 -Wall
+
+
+language: GHC2021
+
+default-extensions:
+  - DataKinds
+  - DeriveGeneric
+  - DerivingStrategies
+  - DuplicateRecordFields
+  - LambdaCase
+  - ImportQualifiedPost
+  - NoImplicitPrelude
+  - OverloadedLabels
+  - OverloadedStrings
+  - RecordWildCards
+  - TemplateHaskell
+  - TupleSections
+  - TypeFamilies
+  - UnicodeSyntax
+  - GADTs
+  - PolyKinds
+  - RankNTypes
+  - TypeOperators
+  - TypeApplications
+
+dependencies:
+  - SHA
+  - aeson
+  - ansi-terminal
+  - async
+  - base
+  - base64-bytestring
+  - binary
+  - bytestring
+  - containers
+  - deepseq
+  - directory
+  - entropy
+  - exceptions
+  - filepath
+  - fmt
+  - generic-lens
+  - hashable
+  - http-client
+  - http-client-tls
+  - http-conduit
+  - http-types
+  - katip
+  - lens
+  - lens-aeson
+  - microlens
+  - mtl
+  - network-uri
+  - open-browser
+  - optparse-applicative
+  - postgresql-simple
+  - pretty
+  - process
+  - raw-strings-qq
+  - regex-tdfa
+  - regression-simple
+  - relude
+  - req
+  - safe
+  - safe-exceptions
+  - scientific
+  - servant
+  - servant-server
+  - sqlite-simple
+  - text
+  - template-haskell
+  - time
+  - tls
+  - tuple
+  - unix
+  - unliftio
+  - unordered-containers
+  - uuid
+  - wai
+  - wai-app-static
+  - wai-logger
+  - warp
+
+library:
+  source-dirs: src
+  generated-exposed-modules:
+    - Paths_kidwiki
+
+executables:
+  kidwiki: &exe
+    main: Main.hs
+    source-dirs: exe
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+      - kidwiki
+
+tests:
+  kidwikitest:
+    <<: *exe
+    ghc-options: -dynamic -rtsopts -threaded # no -with-rtsopts=-N
+    main: Driver
+    source-dirs:
+      - test
+    dependencies:
+      - kidwiki
+      - envy
+      - generic-random
+      - HUnit
+      - network
+      - quickcheck-instances
+      - tasty
+      - tasty-discover
+      - tasty-expected-failure
+      - tasty-golden
+      - tasty-hunit
+      - tasty-quickcheck

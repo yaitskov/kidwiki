@@ -1,0 +1,308 @@
+cabal-version: 2.0
+
+-- This file has been generated from package.yaml by hpack version 0.35.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           kidwiki
+version:        0.0.1
+description:    Rewrites Wikipedia articles for kids with chatGPT
+category:       Database
+author:         Daniil Iaitskov
+maintainer:     dyaitskov@gmail.com
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+library
+  exposed-modules:
+      Kidwiki.Api
+      Kidwiki.Cli
+      Kidwiki.Cmd.RunServer
+      Kidwiki.Error
+      Kidwiki.Json
+      Kidwiki.Katip
+      Kidwiki.Lens
+      Kidwiki.Lib
+      Kidwiki.List
+      Kidwiki.Prelude
+      Kidwiki.Servant.Monad
+      Kidwiki.Time
+      Kidwiki.Types
+      Kidwiki.Wikipedia.Api
+      Paths_kidwiki
+  autogen-modules:
+      Paths_kidwiki
+  hs-source-dirs:
+      src
+  default-extensions:
+      DataKinds
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      LambdaCase
+      ImportQualifiedPost
+      NoImplicitPrelude
+      OverloadedLabels
+      OverloadedStrings
+      RecordWildCards
+      TemplateHaskell
+      TupleSections
+      TypeFamilies
+      UnicodeSyntax
+      GADTs
+      PolyKinds
+      RankNTypes
+      TypeOperators
+      TypeApplications
+  ghc-options: -O2 -Wall
+  build-depends:
+      SHA
+    , aeson
+    , ansi-terminal
+    , async
+    , base
+    , base64-bytestring
+    , binary
+    , bytestring
+    , containers
+    , deepseq
+    , directory
+    , entropy
+    , exceptions
+    , filepath
+    , fmt
+    , generic-lens
+    , hashable
+    , http-client
+    , http-client-tls
+    , http-conduit
+    , http-types
+    , katip
+    , lens
+    , lens-aeson
+    , microlens
+    , mtl
+    , network-uri
+    , open-browser
+    , optparse-applicative
+    , postgresql-simple
+    , pretty
+    , process
+    , raw-strings-qq
+    , regex-tdfa
+    , regression-simple
+    , relude
+    , req
+    , safe
+    , safe-exceptions
+    , scientific
+    , servant
+    , servant-server
+    , sqlite-simple
+    , template-haskell
+    , text
+    , time
+    , tls
+    , tuple
+    , unix
+    , unliftio
+    , unordered-containers
+    , uuid
+    , wai
+    , wai-app-static
+    , wai-logger
+    , warp
+  default-language: GHC2021
+
+executable kidwiki
+  main-is: Main.hs
+  other-modules:
+      Paths_kidwiki
+  autogen-modules:
+      Paths_kidwiki
+  hs-source-dirs:
+      exe
+  default-extensions:
+      DataKinds
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      LambdaCase
+      ImportQualifiedPost
+      NoImplicitPrelude
+      OverloadedLabels
+      OverloadedStrings
+      RecordWildCards
+      TemplateHaskell
+      TupleSections
+      TypeFamilies
+      UnicodeSyntax
+      GADTs
+      PolyKinds
+      RankNTypes
+      TypeOperators
+      TypeApplications
+  ghc-options: -O2 -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      SHA
+    , aeson
+    , ansi-terminal
+    , async
+    , base
+    , base64-bytestring
+    , binary
+    , bytestring
+    , containers
+    , deepseq
+    , directory
+    , entropy
+    , exceptions
+    , filepath
+    , fmt
+    , generic-lens
+    , hashable
+    , http-client
+    , http-client-tls
+    , http-conduit
+    , http-types
+    , katip
+    , kidwiki
+    , lens
+    , lens-aeson
+    , microlens
+    , mtl
+    , network-uri
+    , open-browser
+    , optparse-applicative
+    , postgresql-simple
+    , pretty
+    , process
+    , raw-strings-qq
+    , regex-tdfa
+    , regression-simple
+    , relude
+    , req
+    , safe
+    , safe-exceptions
+    , scientific
+    , servant
+    , servant-server
+    , sqlite-simple
+    , template-haskell
+    , text
+    , time
+    , tls
+    , tuple
+    , unix
+    , unliftio
+    , unordered-containers
+    , uuid
+    , wai
+    , wai-app-static
+    , wai-logger
+    , warp
+  default-language: GHC2021
+
+test-suite kidwikitest
+  type: exitcode-stdio-1.0
+  main-is: Driver.hs
+  other-modules:
+      Autodiscover
+      Kidwiki.Test.Prelude
+      Paths_kidwiki
+  autogen-modules:
+      Paths_kidwiki
+  hs-source-dirs:
+      test
+  default-extensions:
+      DataKinds
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      LambdaCase
+      ImportQualifiedPost
+      NoImplicitPrelude
+      OverloadedLabels
+      OverloadedStrings
+      RecordWildCards
+      TemplateHaskell
+      TupleSections
+      TypeFamilies
+      UnicodeSyntax
+      GADTs
+      PolyKinds
+      RankNTypes
+      TypeOperators
+      TypeApplications
+  ghc-options: -O2 -Wall -dynamic -rtsopts -threaded -main-is Driver
+  build-depends:
+      HUnit
+    , SHA
+    , aeson
+    , ansi-terminal
+    , async
+    , base
+    , base64-bytestring
+    , binary
+    , bytestring
+    , containers
+    , deepseq
+    , directory
+    , entropy
+    , envy
+    , exceptions
+    , filepath
+    , fmt
+    , generic-lens
+    , generic-random
+    , hashable
+    , http-client
+    , http-client-tls
+    , http-conduit
+    , http-types
+    , katip
+    , kidwiki
+    , lens
+    , lens-aeson
+    , microlens
+    , mtl
+    , network
+    , network-uri
+    , open-browser
+    , optparse-applicative
+    , postgresql-simple
+    , pretty
+    , process
+    , quickcheck-instances
+    , raw-strings-qq
+    , regex-tdfa
+    , regression-simple
+    , relude
+    , req
+    , safe
+    , safe-exceptions
+    , scientific
+    , servant
+    , servant-server
+    , sqlite-simple
+    , tasty
+    , tasty-discover
+    , tasty-expected-failure
+    , tasty-golden
+    , tasty-hunit
+    , tasty-quickcheck
+    , template-haskell
+    , text
+    , time
+    , tls
+    , tuple
+    , unix
+    , unliftio
+    , unordered-containers
+    , uuid
+    , wai
+    , wai-app-static
+    , wai-logger
+    , warp
+  default-language: GHC2021
